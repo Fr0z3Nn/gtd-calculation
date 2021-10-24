@@ -15,6 +15,12 @@ public class Util {
 
     //gradysi
     public static double arcctg(double x){
-       return  fromRadToGrad((Math.PI / 2) - Math.atan(x));
+        return  fromRadToGrad((Math.PI / 2) - Math.atan(x));
+       //return  fromRadToGrad((Math.PI / 2) - Math.atan(x));
+    }
+
+    //x в градусах ответ
+    public static double ctg(double x){
+        return 1 / Math.tan(fromGradToRad(x));
     }
 }

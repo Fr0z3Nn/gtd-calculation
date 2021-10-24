@@ -1,5 +1,7 @@
 package ru.ivanov.gtd.Турбовентилятор;
 
+import java.util.stream.IntStream;
+
 import static ru.ivanov.gtd.Util.*;
 import static ru.ivanov.gtd.Турбовентилятор.P00_Исходные_данные.*;
 import static ru.ivanov.gtd.Турбовентилятор.P0_Константы.*;
@@ -303,12 +305,12 @@ public class P1_Предварительный_расчет_вентилятор
         System.out.println("-----------------------");
     }
 
-    public double c_1_alfa_1;
+    public double c_1_a_1;
     public double c_1;
 
     public void skorost_na_vxode_v_ventilyator() {
-        this.c_1_alfa_1 = c_1 = lambda_vx * alfa_1_kr_1;
-        System.out.println("c_1_alfa_1 = " + c_1_alfa_1);
+        this.c_1_a_1 = c_1 = lambda_vx * alfa_1_kr_1;
+        System.out.println("c_1_a_1 = " + c_1_a_1);
     }
 
     //kompressor dlya skorostey
@@ -324,19 +326,19 @@ public class P1_Предварительный_расчет_вентилятор
         System.out.println("-----------KOMPRESSOR-----------");
     }
 
-    public double c_1_alfa_2;
-    public double c_1_alfa_3;
-    public double c_1_alfa_vblx;
+    public double c_1_a_2;
+    public double c_1_a_3;
+    public double c_1_a_vblx;
 
     public void skorosti_na_stypenyax() {
         //распределение от c_1_a_1 до c_1_a_vblx сделать
-        this.c_1_alfa_2 = 201.5;
-        this.c_1_alfa_3 = 199.8;
-        this.c_1_alfa_vblx = c_1_alfa_kompressor;
+        this.c_1_a_2 = 201.5;
+        this.c_1_a_3 = 199.8;
+        this.c_1_a_vblx = c_1_alfa_kompressor;
         System.out.println("\n-----------------------");
-        System.out.println("c_1_alfa_2 = " + c_1_alfa_2);
-        System.out.println("c_1_alfa_3 = " + c_1_alfa_3);
-        System.out.println("c_1_alfa_vblx = " + c_1_alfa_vblx);
+        System.out.println("c_1_a_2 = " + c_1_a_2);
+        System.out.println("c_1_a_3 = " + c_1_a_3);
+        System.out.println("c_1_a_vblx = " + c_1_a_vblx);
         System.out.println("-----------------------");
     }
 
@@ -345,9 +347,9 @@ public class P1_Предварительный_расчет_вентилятор
     public double otn_c_1_alfa_3;
 
     public void koef_rasxoda_na_srednem_diametre_kolesa() {
-        this.otn_c_1_alfa_1 = c_1_alfa_1 / u_sr_1;
-        this.otn_c_1_alfa_2 = c_1_alfa_2 / u_sr_2;
-        this.otn_c_1_alfa_3 = c_1_alfa_3 / u_sr_3;
+        this.otn_c_1_alfa_1 = c_1_a_1 / u_sr_1;
+        this.otn_c_1_alfa_2 = c_1_a_2 / u_sr_2;
+        this.otn_c_1_alfa_3 = c_1_a_3 / u_sr_3;
         System.out.println("\n-----------------------");
         System.out.println("otn_c_1_alfa_1 = " + otn_c_1_alfa_1);
         System.out.println("otn_c_1_alfa_2 = " + otn_c_1_alfa_2);
@@ -387,7 +389,7 @@ public class P1_Предварительный_расчет_вентилятор
     public double lamda_1_1;
 
     public void prived_skorost_na_vxode() {
-        this.lamda_1_1 = c_1_alfa_1 / (alfa_1_kr_1 * Math.sin(fromGradToRad(alfa_1_1)));
+        this.lamda_1_1 = c_1_a_1 / (alfa_1_kr_1 * Math.sin(fromGradToRad(alfa_1_1)));
         System.out.println("lamda_1_1 = " + lamda_1_1);
     }
 
@@ -457,9 +459,9 @@ public class P1_Предварительный_расчет_вентилятор
 
     //DOBAVIL f postsyfix
     public void absolut_i_prived_skorosti_na_vxode_v_rab_kolesa() {
-        this.c_1_1 = Math.sqrt(c_1_u_1 * c_1_u_1 + c_1_alfa_1 * c_1_alfa_1);
-        this.c_1_2 = Math.sqrt(c_1_u_2 * c_1_u_2 + c_1_alfa_2 * c_1_alfa_2);
-        this.c_1_3 = Math.sqrt(c_1_u_3 * c_1_u_3 + c_1_alfa_3 * c_1_alfa_3);
+        this.c_1_1 = Math.sqrt(c_1_u_1 * c_1_u_1 + c_1_a_1 * c_1_a_1);
+        this.c_1_2 = Math.sqrt(c_1_u_2 * c_1_u_2 + c_1_a_2 * c_1_a_2);
+        this.c_1_3 = Math.sqrt(c_1_u_3 * c_1_u_3 + c_1_a_3 * c_1_a_3);
         this.lamda_1_1_f = c_1_1 / Math.sqrt(2 * k / (k + 1) * R * T_1_1$);
         this.lamda_1_2_f = c_1_2 / Math.sqrt(2 * k / (k + 1) * R * T_1_2$);
         this.lamda_1_3_f = c_1_3 / Math.sqrt(2 * k / (k + 1) * R * T_1_3$);
@@ -482,9 +484,9 @@ public class P1_Предварительный_расчет_вентилятор
     double alfa_v_vblx;
 
     public void ygol_vxoda_v_stypen_po_absolut_skorosti() {
-        this.alfa_1_1_f = fromRadToGrad(Math.asin(c_1_alfa_1 / c_1_1));
-        this.alfa_1_2_f = fromRadToGrad(Math.asin(c_1_alfa_2 / c_1_2));
-        this.alfa_1_3_f = fromRadToGrad(Math.asin(c_1_alfa_3 / c_1_3));
+        this.alfa_1_1_f = fromRadToGrad(Math.asin(c_1_a_1 / c_1_1));
+        this.alfa_1_2_f = fromRadToGrad(Math.asin(c_1_a_2 / c_1_2));
+        this.alfa_1_3_f = fromRadToGrad(Math.asin(c_1_a_3 / c_1_3));
         this.alfa_v_vblx = 90;
         System.out.println("\n-----------------------");
         System.out.println("alfa_1_1_f = " + alfa_1_1_f);
@@ -566,20 +568,21 @@ public class P1_Предварительный_расчет_вентилятор
 
     //Dk = const значит D_v = D_v_vblx
     public double D_v;
-    public double h1_1;
-    public double h1_2;
-    public double h1_3;
+    public double h_1_1;
+    public double h_1_2;
+    public double h_1_3;
 
     public void vblsota_rabochey_lopatki() {
         this.D_v = D_v_vblx;
-        this.h1_1 = (D_v - D_vt_1_1) / 2;
-        this.h1_2 = (D_v - D_vt_1_2) / 2;
-        this.h1_3 = (D_v - D_vt_1_3) / 2;
+        this.h_1_1 = (D_v - D_vt_1_1) / 2;
+        this.h_1_2 = (D_v - D_vt_1_2) / 2;
+        this.h_1_3 = (D_v - D_vt_1_3) / 2;
 
         System.out.println("\n-----------------------");
-        System.out.println("h1_1 = " + h1_1);
-        System.out.println("h1_2 = " + h1_2);
-        System.out.println("h1_3 = " + h1_3);
+        System.out.println("D_v = " + D_v);
+        System.out.println("h_1_1 = " + h_1_1);
+        System.out.println("h_1_2 = " + h_1_2);
+        System.out.println("h_1_3 = " + h_1_3);
         System.out.println("-----------------------");
     }
 
@@ -660,10 +663,10 @@ public class P1_Предварительный_расчет_вентилятор
     public double h_rk_3_del_s_rk_3 = 2.5;
 
     public void shirina_rab_lopatok_na_stypeniax() {
-        this.s_vna = h1_1 / h_rk_vna_del_s_rk_vna;
-        this.s_rk_1 = h1_1 / h_rk_1_del_s_rk_1;
-        this.s_rk_2 = h1_2 / h_rk_2_del_s_rk_2;
-        this.s_rk_3 = h1_3 / h_rk_3_del_s_rk_3;
+        this.s_vna = h_1_1 / h_rk_vna_del_s_rk_vna;
+        this.s_rk_1 = h_1_1 / h_rk_1_del_s_rk_1;
+        this.s_rk_2 = h_1_2 / h_rk_2_del_s_rk_2;
+        this.s_rk_3 = h_1_3 / h_rk_3_del_s_rk_3;
         System.out.println("\n-----------------------");
         System.out.println("s_vna = " + s_vna);
         System.out.println("s_rk_1 = " + s_rk_1);
@@ -691,7 +694,7 @@ public class P1_Предварительный_расчет_вентилятор
     public double delta_a_2;
     public double delta_a_3;
 
-    public void osevie_zazori_mezhdy_venz_rab_koles_i_na(){
+    public void osevie_zazori_mezhdy_venz_rab_koles_i_na() {
         this.delta_a_1 = 0.27 * s_rk_1;
         this.delta_a_2 = 0.27 * s_rk_2;
         this.delta_a_3 = 0.27 * s_rk_3;
@@ -705,7 +708,7 @@ public class P1_Предварительный_расчет_вентилятор
     //poschitatb
     public double shirina_protoka;
 
-    public void shirina_protochnoy_chasti(){
+    public void shirina_protochnoy_chasti() {
         System.out.println("shirina_protoka не посчитано");
     }
 
@@ -757,9 +760,587 @@ public class P1_Предварительный_расчет_вентилятор
         shirina_naprav_apparatov();
         osevie_zazori_mezhdy_venz_rab_koles_i_na();
         shirina_protochnoy_chasti();
+        var detalbniy = new P2_Детальный_расчет_вентилятора();
+        detalbniy.calculate();
+        var predVaritTND = new Р3_Предварительный_расчет_турбины_низкого_давления();
+        predVaritTND.calculate();
     }
 
-    class P2_Детальный_расчет_вентилятора{
+    class P2_Детальный_расчет_вентилятора {
 
+        double betta_1_1;
+        double betta_1_2;
+        double betta_1_3;
+
+        public void opredelenie_ygla_potoka_na_vxode_v_rk_v_otn() {
+            double tg_betta_1_1 = otn_c_1_alfa_1 / (1 - otn_c_1_alfa_1 * ctg(alfa_1_1_f));
+            double tg_betta_1_2 = otn_c_1_alfa_2 / (1 - otn_c_1_alfa_2 * ctg(alfa_1_2_f));
+            double tg_betta_1_3 = otn_c_1_alfa_3 / (1 - otn_c_1_alfa_3 * ctg(alfa_1_3_f));
+            System.out.println("\n-----------------------");
+            System.out.println("ctg(alfa_1_1_f) = " + ctg(alfa_1_1_f));
+            System.out.println("ctg(alfa_1_2_f) = " + ctg(alfa_1_2_f));
+            System.out.println("ctg(alfa_1_3_f) = " + ctg(alfa_1_3_f));
+            System.out.println("tg_betta_1_1 = " + tg_betta_1_1);
+            System.out.println("tg_betta_1_2 = " + tg_betta_1_2);
+            System.out.println("tg_betta_1_3 = " + tg_betta_1_3);
+            this.betta_1_1 = fromRadToGrad(Math.atan(tg_betta_1_1));
+            this.betta_1_2 = fromRadToGrad(Math.atan(tg_betta_1_2));
+            this.betta_1_3 = fromRadToGrad(Math.atan(tg_betta_1_3));
+            System.out.println("betta_1_1 = " + betta_1_1);
+            System.out.println("betta_1_2 = " + betta_1_2);
+            System.out.println("betta_1_3 = " + betta_1_3);
+            System.out.println("-----------------------");
+        }
+
+        double W_1_1;
+        double W_1_2;
+        double W_1_3;
+
+        public void otn_skorosti_na_vxode_v_RK() {
+            this.W_1_1 = Math.sqrt(c_1_a_1 * c_1_a_1 + (u_sr_1 - c_1_u_1) * (u_sr_1 - c_1_u_1));
+            this.W_1_2 = Math.sqrt(c_1_a_2 * c_1_a_2 + (u_sr_2 - c_1_u_2) * (u_sr_2 - c_1_u_2));
+            this.W_1_3 = Math.sqrt(c_1_a_3 * c_1_a_3 + (u_sr_3 - c_1_u_3) * (u_sr_3 - c_1_u_3));
+            System.out.println("\n-----------------------");
+            System.out.println("W_1_1 = " + W_1_1);
+            System.out.println("W_1_2 = " + W_1_2);
+            System.out.println("W_1_3 = " + W_1_3);
+            System.out.println("-----------------------");
+        }
+
+        double a_1_1;
+        double a_1_2;
+        double a_1_3;
+        double a_1_vblx;
+        // смотрим на lambda_1_1_f
+        double tau_lambda_1_1 = 0.9229;
+        double tau_lambda_1_2 = 0.9317;
+        double tau_lambda_1_3 = 0.9420;
+        double tau_lambda_v_vblx = 0.9496;
+
+        public void skorosti_na_vxode() {
+            this.a_1_1 = alfa_1_kr_1 * Math.sqrt((k + 1) / 2 * tau_lambda_1_1);
+            this.a_1_2 = alfa_1_kr_2 * Math.sqrt((k + 1) / 2 * tau_lambda_1_2);
+            this.a_1_3 = alfa_1_kr_3 * Math.sqrt((k + 1) / 2 * tau_lambda_1_3);
+            this.a_1_vblx = alfa_1_kr_vblx * Math.sqrt((k + 1) / 2 * tau_lambda_v_vblx);
+            System.out.println("\n-----------------------");
+            System.out.println("a_1_1 = " + a_1_1);
+            System.out.println("a_1_2 = " + a_1_2);
+            System.out.println("a_1_3 = " + a_1_3);
+            System.out.println("a_1_vblx = " + a_1_vblx);
+            System.out.println("-----------------------");
+        }
+
+        double M_w_1_1;
+        double M_w_1_2;
+        double M_w_1_3;
+
+        public void chislo_Maxa_v_otn_dv_na_vxode_v_stypeni() {
+            this.M_w_1_1 = W_1_1 / a_1_1;
+            this.M_w_1_2 = W_1_2 / a_1_2;
+            this.M_w_1_3 = W_1_3 / a_1_3;
+            System.out.println("\n-----------------------");
+            System.out.println("M_w_1_1 = " + M_w_1_1);
+            System.out.println("M_w_1_2 = " + M_w_1_2);
+            System.out.println("M_w_1_3 = " + M_w_1_3);
+            System.out.println("-----------------------");
+        }
+
+        double h_ydl_1 = 3.71;
+        double h_ydl_2 = 3.48;
+        double h_ydl_3 = 3.26;
+
+        int z_rk_1;
+        int z_rk_2;
+        int z_rk_3;
+
+        public void chislo_lopatok_rab_koles() {
+            System.out.println("\n-----------------------");
+            System.out.println("h_ydl_1 [ДО] = " + h_ydl_1);
+            z_rk_1 = (int) (h_ydl_1 * bt_1 * Math.PI * D_sr_1 / h_1_1);
+            System.out.println("z_rk_1 = " + z_rk_1);
+            h_ydl_1 = (z_rk_1 * h_1_1) / (bt_1 * Math.PI * D_sr_1);
+            System.out.println("h_ydl_1 [ПОСЛЕ] = " + h_ydl_1);
+            System.out.println("-----------------------");
+
+            System.out.println("\n-----------------------");
+            System.out.println("h_ydl_2 [ДО] = " + h_ydl_2);
+            z_rk_2 = (int) (h_ydl_2 * bt_2 * Math.PI * D_sr_2 / h_1_2);
+            System.out.println("z_rk_2 = " + z_rk_2);
+            h_ydl_2 = (z_rk_2 * h_1_2) / (bt_2 * Math.PI * D_sr_2);
+            System.out.println("h_ydl_2 [ПОСЛЕ] = " + h_ydl_2);
+            System.out.println("-----------------------");
+
+            System.out.println("\n-----------------------");
+            System.out.println("h_ydl_3 [ДО] = " + h_ydl_3);
+            z_rk_3 = (int) (h_ydl_3 * bt_3 * Math.PI * D_sr_3 / h_1_3);
+            System.out.println("z_rk_3 = " + z_rk_3);
+            h_ydl_3 = (z_rk_3 * h_1_3) / (bt_3 * Math.PI * D_sr_3);
+            System.out.println("h_ydl_3 [ПОСЛЕ] = " + h_ydl_3);
+            System.out.println("-----------------------");
+        }
+
+        //хорды
+        double b_rk_1;
+        double b_rk_2;
+        double b_rk_3;
+
+        public void dlina_xord_lopatok_ventilyatora() {
+            this.b_rk_1 = h_1_1 / h_ydl_1;
+            this.b_rk_2 = h_1_2 / h_ydl_2;
+            this.b_rk_3 = h_1_3 / h_ydl_3;
+            System.out.println("\n-----------------------");
+            System.out.println("b_rk_1 = " + b_rk_1);
+            System.out.println("b_rk_2 = " + b_rk_2);
+            System.out.println("b_rk_3 = " + b_rk_3);
+            System.out.println("-----------------------");
+        }
+
+        double c_2_u_1;
+        double c_2_u_2;
+        double c_2_u_3;
+
+        public void okr_sostavl_absolutnoy_skorosti_na_vblxpde_iz_rab_kolesa() {
+            this.c_2_u_1 = u_sr_1 * ((1 - Rou_st_1) + (otn_L_k_u_1 / 2));
+            this.c_2_u_2 = u_sr_2 * ((1 - Rou_st_2) + (otn_L_k_u_2 / 2));
+            this.c_2_u_3 = u_sr_3 * ((1 - Rou_st_3) + (otn_L_k_u_3 / 2));
+            System.out.println("\n-----------------------");
+            System.out.println("c_2_u_1 = " + c_2_u_1);
+            System.out.println("c_2_u_2 = " + c_2_u_2);
+            System.out.println("c_2_u_3 = " + c_2_u_3);
+            System.out.println("-----------------------");
+        }
+
+        double c_2_a_1;
+        double c_2_a_2;
+        double c_2_a_3;
+
+        public void osevie_skorosti_na_vblxode_iz_rab_kolesa_stypeniy() {
+            this.c_2_a_1 = (c_1_a_1 + c_1_a_2) / 2;
+            this.c_2_a_2 = (c_1_a_2 + c_1_a_3) / 2;
+            this.c_2_a_3 = (c_1_a_3 + c_1_a_vblx) / 2;
+            System.out.println("\n-----------------------");
+            System.out.println("c_2_a_1 = " + c_2_a_1);
+            System.out.println("c_2_a_2 = " + c_2_a_2);
+            System.out.println("c_2_a_3 = " + c_2_a_3);
+            System.out.println("-----------------------");
+        }
+
+        double c_2_1;
+        double c_2_2;
+        double c_2_3;
+        double lambda_2_1;
+        double lambda_2_2;
+        double lambda_2_3;
+
+        public void absol_i_prived_skorost_na_vblxode_iz_rab_koles_stypeney_ventilyatora() {
+            this.c_2_1 = Math.sqrt(c_2_a_1 * c_2_a_1 + c_2_u_1 * c_2_u_1);
+            this.lambda_2_1 = c_2_1 / a_1_1;
+            this.c_2_2 = Math.sqrt(c_2_a_2 * c_2_a_2 + c_2_u_2 * c_2_u_2);
+            this.lambda_2_2 = c_2_2 / a_1_2;
+            this.c_2_3 = Math.sqrt(c_2_a_3 * c_2_a_3 + c_2_u_3 * c_2_u_3);
+            this.lambda_2_3 = c_2_3 / a_1_3;
+            System.out.println("\n-----------------------");
+            System.out.println("c_2_1 = " + c_2_1);
+            System.out.println("lambda_2_1 = " + lambda_2_1);
+            System.out.println("c_2_2 = " + c_2_2);
+            System.out.println("lambda_2_2 = " + lambda_2_2);
+            System.out.println("c_2_3 = " + c_2_3);
+            System.out.println("lambda_2_3 = " + lambda_2_3);
+            System.out.println("-----------------------");
+        }
+
+        double a_2_1;
+        double a_2_2;
+        double a_2_3;
+        // смотрим на lambda_1_1_f
+        double tau_lambda_2_1 = 0.8739;
+        double tau_lambda_2_2 = 0.8824;
+        double tau_lambda_2_3 = 0.8986;
+
+        public void mestniy_skorosti_na_vblxode_iz_rabochix_koles() {
+            this.a_2_1 = alfa_1_kr_2 * Math.sqrt((k + 1) / 2 * tau_lambda_2_1);
+            this.a_2_2 = alfa_1_kr_3 * Math.sqrt((k + 1) / 2 * tau_lambda_2_2);
+            this.a_2_3 = alfa_1_kr_vblx * Math.sqrt((k + 1) / 2 * tau_lambda_2_3);
+            System.out.println("\n-----------------------");
+            System.out.println("a_2_1 = " + a_2_1);
+            System.out.println("a_2_2 = " + a_2_2);
+            System.out.println("a_2_3 = " + a_2_3);
+            System.out.println("-----------------------");
+        }
+
+        double M_c_2_1;
+        double M_c_2_2;
+        double M_c_2_3;
+
+        public void chislo_Maxa_po_absolut_skorosti_na_vxode_v_napravl_app_stypeney_ventilyatora() {
+            this.M_c_2_1 = c_2_1 / a_2_1;
+            this.M_c_2_2 = c_2_2 / a_2_2;
+            this.M_c_2_3 = c_2_3 / a_2_3;
+            System.out.println("\n-----------------------");
+            System.out.println("M_c_2_1 = " + M_c_2_1);
+            System.out.println("M_c_2_2 = " + M_c_2_2);
+            System.out.println("M_c_2_3 = " + M_c_2_3);
+            System.out.println("-----------------------");
+        }
+
+        double sin_alfa_2_1;
+        double sin_alfa_2_2;
+        double sin_alfa_2_3;
+        double alfa_2_1;
+        double alfa_2_2;
+        double alfa_2_3;
+
+        public void opred_yglov_vblxoda_iz_rab_koles_v_absolut_dvizhenii() {
+            this.sin_alfa_2_1 = c_2_a_1 / c_2_1;
+            this.sin_alfa_2_2 = c_2_a_2 / c_2_2;
+            this.sin_alfa_2_3 = c_2_a_3 / c_2_3;
+            this.alfa_2_1 = fromRadToGrad(Math.asin(sin_alfa_2_1));
+            this.alfa_2_2 = fromRadToGrad(Math.asin(sin_alfa_2_2));
+            this.alfa_2_3 = fromRadToGrad(Math.asin(sin_alfa_2_3));
+            System.out.println("\n-----------------------");
+            System.out.println("sin_alfa_2_1 = " + sin_alfa_2_1);
+            System.out.println("sin_alfa_2_2 = " + sin_alfa_2_2);
+            System.out.println("sin_alfa_2_3 = " + sin_alfa_2_3);
+            System.out.println("alfa_2_1 = " + alfa_2_1);
+            System.out.println("alfa_2_2 = " + alfa_2_2);
+            System.out.println("alfa_2_3 = " + alfa_2_3);
+            System.out.println("-----------------------");
+        }
+
+        double P_2_1$;
+        double P_2_2$;
+        double P_2_3$;
+
+        public void poln_davl_na_vblxode_iz_rabochix_koles_stypenei_ventilyatora() {
+            this.P_2_1$ = P_1_1$ * Math.pow((1 + ((L_v_1 * Nu_rk$) / (k / (k - 1) * R * T_vx$))), k / (k - 1));
+            this.P_2_2$ = P_1_2$ * Math.pow((1 + ((L_v_2 * Nu_rk$) / (k / (k - 1) * R * T_1_2$))), k / (k - 1));
+            this.P_2_3$ = P_1_3$ * Math.pow((1 + ((L_v_3 * Nu_rk$) / (k / (k - 1) * R * T_1_3$))), k / (k - 1));
+            System.out.println("\n-----------------------");
+            System.out.println("P_2_1$ = " + P_2_1$);
+            System.out.println("P_2_2$ = " + P_2_2$);
+            System.out.println("P_2_3$ = " + P_2_3$);
+            System.out.println("-----------------------");
+        }
+
+        double sigma_CA_1;
+        double sigma_CA_2;
+        double sigma_CA_3;
+
+        public void koef_vostan_polnogo_davleniya() {
+            this.sigma_CA_1 = P_1_2$ / P_2_1$;
+            this.sigma_CA_2 = P_1_3$ / P_2_2$;
+            this.sigma_CA_3 = P_v_vblx$ / P_2_3$;
+            System.out.println("\n-----------------------");
+            System.out.println("sigma_CA_1 = " + sigma_CA_1);
+            System.out.println("sigma_CA_2 = " + sigma_CA_2);
+            System.out.println("sigma_CA_3 = " + sigma_CA_3);
+            System.out.println("-----------------------");
+        }
+
+        double F_2_1;
+        double F_2_2;
+        double F_2_3;
+
+        double q_lambda_2_1 = 0.9796;
+        double q_lambda_2_2 = 0.9691;
+        double q_lambda_2_3 = 0.9418;
+
+        public void calculate_ploshad_proxodnogo_sechenia() {
+            this.F_2_1 = (G_v_sum * Math.sqrt(T_2_1$)) /
+                    (P_2_1$ * q_lambda_2_1 * sin_alfa_2_1 * s_v * Kg);
+            this.F_2_2 = (G_v_sum * Math.sqrt(T_2_2$)) /
+                    (P_2_2$ * q_lambda_2_2 * sin_alfa_2_2 * s_v * Kg);
+            this.F_2_3 = (G_v_sum * Math.sqrt(T_3_3$)) /
+                    (P_2_3$ * q_lambda_2_3 * sin_alfa_2_3 * s_v * Kg);
+            System.out.println("\n-----------------------");
+            System.out.println("q_lambda_2_1 = " + q_lambda_2_1);
+            System.out.println("q_lambda_2_2 = " + q_lambda_2_2);
+            System.out.println("q_lambda_2_3 = " + q_lambda_2_3);
+            System.out.println("F_2_1 = " + F_2_1);
+            System.out.println("F_2_2 = " + F_2_2);
+            System.out.println("F_2_3 = " + F_2_3);
+            System.out.println("-----------------------");
+        }
+
+        double otn_d_vt_2_1;
+        double otn_d_vt_2_2;
+        double otn_d_vt_2_3;
+
+        public void otn_diametr_vtylki_za_rab_kolesami_stypeney() {
+            this.otn_d_vt_2_1 = Math.sqrt(1 - (4 * F_2_1) / (Math.PI * D_v * D_v));
+            this.otn_d_vt_2_2 = Math.sqrt(1 - (4 * F_2_2) / (Math.PI * D_v * D_v));
+            this.otn_d_vt_2_3 = Math.sqrt(1 - (4 * F_2_3) / (Math.PI * D_v * D_v));
+            System.out.println("\n-----------------------");
+            System.out.println("otn_d_vt_2_1 = " + otn_d_vt_2_1);
+            System.out.println("otn_d_vt_2_2 = " + otn_d_vt_2_2);
+            System.out.println("otn_d_vt_2_3 = " + otn_d_vt_2_3);
+            System.out.println("-----------------------");
+        }
+
+        double D_vt_2_1;
+        double D_vt_2_2;
+        double D_vt_2_3;
+
+        public void diametr_vtylki_za_rab_kolesami_stypeney_ventilyatora() {
+            this.D_vt_2_1 = D_v * otn_d_vt_2_1;
+            this.D_vt_2_2 = D_v * otn_d_vt_2_2;
+            this.D_vt_2_3 = D_v * otn_d_vt_2_3;
+            System.out.println("\n-----------------------");
+            System.out.println("D_2_vt_1 = " + D_vt_2_1);
+            System.out.println("D_2_vt_2 = " + D_vt_2_2);
+            System.out.println("D_2_vt_3 = " + D_vt_2_3);
+            System.out.println("-----------------------");
+        }
+
+        double h_2_1;
+        double h_2_2;
+        double h_2_3;
+
+        public void visoti_lopatok_na_vblxode_iz_rab_koles_stypenei_ventilyatora() {
+            this.h_2_1 = (D_v - D_vt_1_1) / 2;
+            this.h_2_2 = (D_v - D_vt_1_2) / 2;
+            this.h_2_3 = (D_v - D_vt_1_3) / 2;
+            System.out.println("\n-----------------------");
+            System.out.println("h_2_1 = " + h_2_1);
+            System.out.println("h_2_2 = " + h_2_2);
+            System.out.println("h_2_3 = " + h_2_3);
+            System.out.println("-----------------------");
+        }
+
+        double W_2_1;
+        double W_2_2;
+        double W_2_3;
+
+        public void otn_skorosti_na_vblxode_iz_RK() {
+            this.W_2_1 = Math.sqrt(c_2_a_1 * c_2_a_1 + (u_sr_1 - c_2_u_1) * (u_sr_1 - c_2_u_1));
+            this.W_2_2 = Math.sqrt(c_2_a_2 * c_2_a_2 + (u_sr_2 - c_2_u_2) * (u_sr_2 - c_2_u_2));
+            this.W_2_3 = Math.sqrt(c_2_a_3 * c_2_a_3 + (u_sr_3 - c_2_u_3) * (u_sr_3 - c_2_u_3));
+            System.out.println("\n-----------------------");
+            System.out.println("W_2_1 = " + W_2_1);
+            System.out.println("W_2_2 = " + W_2_2);
+            System.out.println("W_2_3 = " + W_2_3);
+            System.out.println("-----------------------");
+        }
+
+        double sin_betta_2_1;
+        double sin_betta_2_2;
+        double sin_betta_2_3;
+        double betta_2_1;
+        double betta_2_2;
+        double betta_2_3;
+
+        public void ygli_iz_rabochix_koles_v_otn_dvizhenii() {
+            this.sin_betta_2_1 = c_2_a_1 / W_2_1;
+            this.sin_betta_2_2 = c_2_a_2 / W_2_2;
+            this.sin_betta_2_3 = c_2_a_3 / W_2_3;
+            this.betta_2_1 = fromRadToGrad(Math.asin(sin_betta_2_1));
+            this.betta_2_2 = fromRadToGrad(Math.asin(sin_betta_2_2));
+            this.betta_2_3 = fromRadToGrad(Math.asin(sin_betta_2_3));
+            System.out.println("\n-----------------------");
+            System.out.println("sin_betta_2_1 = " + sin_betta_2_1);
+            System.out.println("sin_betta_2_2 = " + sin_betta_2_2);
+            System.out.println("sin_betta_2_3 = " + sin_betta_2_3);
+            System.out.println("betta_2_1 = " + betta_2_1);
+            System.out.println("betta_2_2 = " + betta_2_2);
+            System.out.println("betta_2_3 = " + betta_2_3);
+            System.out.println("-----------------------");
+        }
+
+        double delta_betta_1;
+        double delta_betta_2;
+        double delta_betta_3;
+
+        public void ygli_povorota_v_rab_kolesax_styp_ventilyatora() {
+            this.delta_betta_1 = betta_2_1 - betta_1_1;
+            this.delta_betta_2 = betta_2_2 - betta_1_2;
+            this.delta_betta_3 = betta_2_3 - betta_1_3;
+            System.out.println("\n-----------------------");
+            System.out.println("delta_betta_1 = " + delta_betta_1);
+            System.out.println("delta_betta_2 = " + delta_betta_2);
+            System.out.println("delta_betta_3 = " + delta_betta_3);
+            System.out.println("-----------------------");
+        }
+
+        double alfa_3_1;
+        double alfa_3_2;
+        double alfa_3_vblx;
+
+        public void ygli_vblxoda_potoka_iz_napravl_app() {
+            this.alfa_3_1 = alfa_1_2_f;
+            this.alfa_3_2 = alfa_1_3_f;
+            this.alfa_3_vblx = 90;
+
+            System.out.println("\n-----------------------");
+            System.out.println("alfa_3_1 = " + alfa_3_1);
+            System.out.println("alfa_3_2 = " + alfa_3_2);
+            System.out.println("alfa_3_vblx = " + alfa_3_vblx);
+            System.out.println("-----------------------");
+        }
+
+        double delta_alfa_1;
+        double delta_alfa_2;
+        double delta_alfa_3;
+
+        public void ygli_povorota_potoka_v_napravl_app_stypeney_ventilyatora() {
+            this.delta_alfa_1 = alfa_3_1 - alfa_2_1;
+            this.delta_alfa_2 = alfa_3_2 - alfa_2_2;
+            this.delta_alfa_3 = alfa_3_vblx - alfa_2_3;
+            System.out.println("\n-----------------------");
+            System.out.println("delta_alfa_1 = " + delta_alfa_1);
+            System.out.println("delta_alfa_2 = " + delta_alfa_2);
+            System.out.println("delta_alfa_3 = " + delta_alfa_3);
+            System.out.println("-----------------------");
+        }
+
+        double otn_alfa_3_1;
+        double otn_alfa_3_2;
+        double otn_alfa_3_3;
+        double otn_delta_alfa_1_1;
+        double otn_delta_alfa_1_2;
+        double otn_delta_alfa_1_3;
+        double otn_delta_alfa_1;
+        double otn_delta_alfa_2;
+        double otn_delta_alfa_3;
+        double E_1;
+        double E_2;
+        double E_3;
+
+        public void nominalniy_egol_povorota_v_absolut_dvizh_na_stypen_vent() {
+            System.out.println("\n-----------------------");
+            //номинальный угол потока на выходе из ступени вентилятора
+            this.otn_alfa_3_1 = alfa_3_1 / 100;
+            this.otn_alfa_3_2 = alfa_3_2 / 100;
+            this.otn_alfa_3_3 = alfa_3_vblx / 100;
+            System.out.println("otn_alfa_3_1 = " + otn_alfa_3_1);
+            System.out.println("otn_alfa_3_2 = " + otn_alfa_3_2);
+            System.out.println("otn_alfa_3_3 = " + otn_alfa_3_3);
+
+            //номинальные углы поворота потока за ступенями вентилятора, при густоте решетки равной единице
+            this.otn_delta_alfa_1_1 = 0.037 + 0.1 * otn_alfa_3_1 + 0.262 * otn_alfa_3_1 * otn_alfa_3_1;
+            this.otn_delta_alfa_1_2 = 0.037 + 0.1 * otn_alfa_3_2 + 0.262 * otn_alfa_3_2 * otn_alfa_3_2;
+            this.otn_delta_alfa_1_3 = 0.037 + 0.1 * otn_alfa_3_3 + 0.262 * otn_alfa_3_3 * otn_alfa_3_3;
+            System.out.println("otn_delta_alfa_1_1 = " + otn_delta_alfa_1_1);
+            System.out.println("otn_delta_alfa_1_2 = " + otn_delta_alfa_1_2);
+            System.out.println("otn_delta_alfa_1_3 = " + otn_delta_alfa_1_3);
+
+            this.otn_delta_alfa_1 = delta_alfa_1 / 100;
+            this.otn_delta_alfa_2 = delta_alfa_2 / 100;
+            this.otn_delta_alfa_3 = delta_alfa_3 / 100;
+            System.out.println("otn_delta_alfa_1 = " + otn_delta_alfa_1);
+            System.out.println("otn_delta_alfa_2 = " + otn_delta_alfa_2);
+            System.out.println("otn_delta_alfa_3 = " + otn_delta_alfa_3);
+
+            //определяется параметр E
+            this.E_1 = otn_delta_alfa_1 / otn_delta_alfa_1_1;
+            this.E_2 = otn_delta_alfa_2 / otn_delta_alfa_1_2;
+            this.E_3 = otn_delta_alfa_3 / otn_delta_alfa_1_3;
+            System.out.println("E_1 = " + E_1);
+            System.out.println("E_2 = " + E_2);
+            System.out.println("E_3 = " + E_3);
+            System.out.println("-----------------------");
+        }
+
+        double bt_CA_1;
+        double bt_CA_2;
+        double bt_CA_3;
+
+        //Определение густоты решетки спрямляющих аппаратов на ступенях вентилятора
+        public void opred_gystoti_resh_v_spryamlyash_apparatax() {
+            this.bt_CA_1 = 0.231 - 0.135 * E_1 + 0.909 * E_1 * E_1;
+            this.bt_CA_2 = 10 * (0.981 - 1.788 * E_2 + 0.912 * E_2 * E_2);
+            this.bt_CA_3 = 10 * (0.981 - 1.788 * E_3 + 0.912 * E_3 * E_3);
+            System.out.println("\n-----------------------");
+            System.out.println("bt_CA_1 = " + bt_CA_1);
+            System.out.println("bt_CA_2 = " + bt_CA_2);
+            System.out.println("bt_CA_3 = " + bt_CA_3);
+            System.out.println("-----------------------");
+        }
+
+        int z_CA_1;
+        int z_CA_2;
+        int z_CA_3;
+        double h_ydl_CA_1;
+        double h_ydl_CA_2;
+        double h_ydl_CA_3;
+
+        //Алгоритм расчета такой же, как и для определения числа лопаток рабочих колес. Удлинения лопаток будут взяты такие же, как и для рабочих колес. Тогда
+        public void opredelenie_chisla_lopatok_spryamlyash_apparatov(){
+            this.h_ydl_CA_1 = h_ydl_1;
+            this.h_ydl_CA_2 = h_ydl_2;
+            this.h_ydl_CA_3 = h_ydl_3;
+            System.out.println("\n-----------------------");
+            System.out.println("h_ydl_CA_1 [ДО] = " + h_ydl_CA_1);
+            this.z_CA_1 = (int) ((h_ydl_CA_1 * bt_CA_1 * Math.PI * D_sr_1) / h_2_1);
+            System.out.println("z_CA_1 = " + z_CA_1);
+            h_ydl_CA_1 = (z_CA_1 * h_2_1) / (bt_CA_1 * Math.PI * D_sr_1);
+            System.out.println("h_ydl_CA_1 [ПОСЛЕ] = " + h_ydl_CA_1);
+            System.out.println("-----------------------");
+
+            System.out.println("\n-----------------------");
+            System.out.println("h_ydl_CA_2 [ДО] = " + h_ydl_CA_2);
+            this.z_CA_2 = (int) ((h_ydl_CA_2 * bt_CA_2 * Math.PI * D_sr_2) / h_2_2);
+            System.out.println("z_CA_2 = " + z_CA_2);
+            h_ydl_CA_2 = (z_CA_2 * h_2_2) / (bt_CA_2 * Math.PI * D_sr_2);
+            System.out.println("h_ydl_2 [ПОСЛЕ] = " + h_ydl_CA_2);
+            System.out.println("-----------------------");
+
+            System.out.println("\n-----------------------");
+            System.out.println("h_ydl_CA_3 [ДО] = " + h_ydl_CA_3);
+            this.z_CA_3 = (int) ((h_ydl_CA_3 * bt_CA_3 * Math.PI * D_sr_3) / h_2_3);
+            System.out.println("z_CA_3 = " + z_CA_3);
+            h_ydl_CA_3 = (z_CA_3 * h_2_3) / (bt_CA_3 * Math.PI * D_sr_3);
+            System.out.println("h_ydl_3 [ПОСЛЕ] = " + h_ydl_CA_3);
+            System.out.println("-----------------------");
+        }
+
+        double b_CA_1;
+        double b_CA_2;
+        double b_CA_3;
+
+        public void opred_hord_streml_apparatov(){
+            this.b_CA_1 = h_2_1 / h_ydl_CA_1;
+            this.b_CA_2 = h_2_2 / h_ydl_CA_2;
+            this.b_CA_3 = h_2_3 / h_ydl_CA_3;
+            System.out.println("\n-----------------------");
+            System.out.println("b_CA_1 = " + b_CA_1);
+            System.out.println("b_CA_2 = " + b_CA_2);
+            System.out.println("b_CA_3 = " + b_CA_3);
+            System.out.println("-----------------------");
+        }
+
+        public void calculate() {
+            opredelenie_ygla_potoka_na_vxode_v_rk_v_otn();
+            otn_skorosti_na_vxode_v_RK();
+            skorosti_na_vxode();
+            chislo_Maxa_v_otn_dv_na_vxode_v_stypeni();
+            chislo_lopatok_rab_koles();
+            dlina_xord_lopatok_ventilyatora();
+            okr_sostavl_absolutnoy_skorosti_na_vblxpde_iz_rab_kolesa();
+            osevie_skorosti_na_vblxode_iz_rab_kolesa_stypeniy();
+            absol_i_prived_skorost_na_vblxode_iz_rab_koles_stypeney_ventilyatora();
+            mestniy_skorosti_na_vblxode_iz_rabochix_koles();
+            chislo_Maxa_po_absolut_skorosti_na_vxode_v_napravl_app_stypeney_ventilyatora();
+            opred_yglov_vblxoda_iz_rab_koles_v_absolut_dvizhenii();
+            poln_davl_na_vblxode_iz_rabochix_koles_stypenei_ventilyatora();
+            koef_vostan_polnogo_davleniya();
+            calculate_ploshad_proxodnogo_sechenia();
+            otn_diametr_vtylki_za_rab_kolesami_stypeney();
+            diametr_vtylki_za_rab_kolesami_stypeney_ventilyatora();
+            visoti_lopatok_na_vblxode_iz_rab_koles_stypenei_ventilyatora();
+            otn_skorosti_na_vblxode_iz_RK();
+            ygli_iz_rabochix_koles_v_otn_dvizhenii();
+            ygli_povorota_v_rab_kolesax_styp_ventilyatora();
+            ygli_vblxoda_potoka_iz_napravl_app();
+            ygli_povorota_potoka_v_napravl_app_stypeney_ventilyatora();
+            nominalniy_egol_povorota_v_absolut_dvizh_na_stypen_vent();
+            opred_gystoti_resh_v_spryamlyash_apparatax();
+            opredelenie_chisla_lopatok_spryamlyash_apparatov();
+            opred_hord_streml_apparatov();
+        }
+    }
+
+    class Р3_Предварительный_расчет_турбины_низкого_давления{
+
+        public void calculate(){}
     }
 }

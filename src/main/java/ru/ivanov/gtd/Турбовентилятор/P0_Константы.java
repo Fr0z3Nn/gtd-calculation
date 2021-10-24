@@ -34,6 +34,8 @@ public class P0_Константы {
     public static final double Nu_konc_2 = 0.99;
     public static final double Nu_konc_3 = 0.98;
 
+    public static final double Nu_rk$ = 0.93;
+
     //основные функции гтд
     public static final double lambda_vx = 0.65;
     public static final double q_Lambda_vx = 0.8543;
