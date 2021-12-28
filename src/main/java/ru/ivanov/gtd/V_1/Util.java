@@ -1,4 +1,4 @@
-package ru.ivanov.gtd;
+package ru.ivanov.gtd.V_1;
 
 /**
  * @author Sergey Ivanov

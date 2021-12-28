@@ -1,4 +1,4 @@
-package ru.ivanov.gtd.Турбовентилятор;
+package ru.ivanov.gtd.V_1.Турбовентилятор;
 
 /**
  * @author Sergey Ivanov
@@ -15,8 +15,9 @@ public class P00_Исходные_данные {
 
     public static final double G_v_sum = 75.0;
     public static final double m = 0.48;
-    public static final double Pi_sum = 24;
+    public static final double Pi_sum$ = 24;
     public static final double Pi_v$ = 3.2;
+    public static final double Pi_kvd$ = 7.5;
     public static final double T_g$ = 1600;
     public static final double otn_d_vt = 0.35;
 
